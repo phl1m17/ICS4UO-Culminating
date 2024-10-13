@@ -9,7 +9,7 @@ public class GamePanel extends JPanel implements Runnable{
     int screenLength = tileSize*3;
 
     TitlePanel tPanel = new TitlePanel(this);
-    BattlePanel bPanel = new BattlePanel(this);
+    //BattlePanel bPanel = new BattlePanel(this);
     CharacterPanel cPanel = new CharacterPanel(this);
     TutorialPanel toPanel = new TutorialPanel(this);
     Constants c = new Constants();

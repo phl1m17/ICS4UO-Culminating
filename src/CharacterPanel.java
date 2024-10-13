@@ -8,7 +8,7 @@ import javax.swing.JButton;
 public class CharacterPanel implements ActionListener{
     GamePanel gp;
     JButton fire, water, earth;
-    boolean startGame;
+    //boolean startGame;
     public CharacterPanel(GamePanel gp){
         this.gp=gp;
         gp.setLayout(null);
@@ -21,9 +21,9 @@ public class CharacterPanel implements ActionListener{
         water.setBounds(200,100,50,50);
         earth.setBounds(300,100,50,50);
 
-        fire.addActionListener(this);
-        water.addActionListener(this);
-        earth.addActionListener(this);
+        // fire.addActionListener(this);
+        // water.addActionListener(this);
+        // earth.addActionListener(this);
 
         // gp.add(fire);
         // gp.add(water);
