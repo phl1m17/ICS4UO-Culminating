@@ -9,7 +9,7 @@ public class Main extends JFrame{
 
         gp.startGameThread();
         
-        setTitle("Pokemon Game");
+        setTitle("NSS Pokemon Battle");
         setResizable(false);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

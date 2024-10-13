@@ -10,6 +10,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     TitlePanel tPanel = new TitlePanel(this);
     BattlePanel bPanel = new BattlePanel(this);
+    CharacterPanel cPanel = new CharacterPanel(this);
+    TutorialPanel toPanel = new TutorialPanel(this);
+    Constants c = new Constants();
     KeyHandler keyH = new KeyHandler();
 
     Thread gameThread;
@@ -25,14 +28,26 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread.start();
     }
     public void update(){
-        
+        if(keyH.backKey == true && keyH.characterScreen == true){
+            keyH.characterScreen = false;
+            keyH.backKey = false;
+        }
+        if(keyH.backKey == true && keyH.tutorialScreen == true){
+            keyH.tutorialScreen = false;
+            keyH.backKey = false;
+        }
     }
     @Override
     public void paintComponent(Graphics g){
-        tPanel.paint(g);
-        if(keyH.startGame == true){
-            bPanel.paint(g);
-            repaint();
+        super.paintComponent(g);
+        if(keyH.characterScreen == false && keyH.tutorialScreen == false){
+            tPanel.paint(g);
+        }
+        if(keyH.characterScreen == true){
+            cPanel.paint(g);
+        }
+        if(keyH.tutorialScreen == true){
+            toPanel.paint(g);
         }
     }
     @Override
