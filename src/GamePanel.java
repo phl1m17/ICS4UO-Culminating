@@ -8,9 +8,11 @@ public class GamePanel extends JPanel implements Runnable{
     int screenWidth = tileSize*4;
     int screenLength = tileSize*3;
 
+    //HealthAndEXP hXP = new HealthAndEXP();
     TitlePanel tPanel = new TitlePanel(this);
-    //BattlePanel bPanel = new BattlePanel(this);
-    CharacterPanel cPanel = new CharacterPanel(this);
+    BattlePanel bPanel = new BattlePanel(this);
+    Player player = new Player(this);
+    CharacterPanel cPanel = new CharacterPanel(this, player);
     TutorialPanel toPanel = new TutorialPanel(this);
     Constants c = new Constants();
     KeyHandler keyH = new KeyHandler();
@@ -31,10 +33,16 @@ public class GamePanel extends JPanel implements Runnable{
         if(keyH.backKey == true && keyH.characterScreen == true){
             keyH.characterScreen = false;
             keyH.backKey = false;
+            remove(cPanel.fire);
+            remove(cPanel.water);
+            remove(cPanel.earth);
         }
         if(keyH.backKey == true && keyH.tutorialScreen == true){
             keyH.tutorialScreen = false;
             keyH.backKey = false;
+            remove(cPanel.fire);
+            remove(cPanel.water);
+            remove(cPanel.earth);
         }
     }
     @Override
@@ -45,9 +53,19 @@ public class GamePanel extends JPanel implements Runnable{
         }
         if(keyH.characterScreen == true){
             cPanel.paint(g);
+            add(cPanel.fire);
+            add(cPanel.water);
+            add(cPanel.earth);
         }
         if(keyH.tutorialScreen == true){
             toPanel.paint(g);
+        }
+        if(cPanel.startGame == true){
+            remove(cPanel.fire);
+            remove(cPanel.water);
+            remove(cPanel.earth);
+            player.paint(g);
+            bPanel.paint(g);
         }
     }
     @Override

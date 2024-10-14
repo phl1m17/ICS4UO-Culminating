@@ -8,9 +8,11 @@ import javax.swing.JButton;
 public class CharacterPanel implements ActionListener{
     GamePanel gp;
     JButton fire, water, earth;
-    //boolean startGame;
-    public CharacterPanel(GamePanel gp){
+    boolean startGame;
+    Player player;
+    public CharacterPanel(GamePanel gp, Player player){
         this.gp=gp;
+        this.player=player;
         gp.setLayout(null);
 
         fire = new JButton();
@@ -21,13 +23,12 @@ public class CharacterPanel implements ActionListener{
         water.setBounds(200,100,50,50);
         earth.setBounds(300,100,50,50);
 
-        // fire.addActionListener(this);
-        // water.addActionListener(this);
-        // earth.addActionListener(this);
-
-        // gp.add(fire);
-        // gp.add(water);
-        // gp.add(earth);
+        fire.addActionListener(this);
+        water.addActionListener(this);
+        earth.addActionListener(this);
+        fire.setFocusable(false);
+        water.setFocusable(false);
+        earth.setFocusable(false);
     }
     public void paint(Graphics g){
         g.setColor(Color.blue);
@@ -37,6 +38,16 @@ public class CharacterPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == fire || e.getSource() == water || e.getSource() == earth){
             gp.keyH.characterScreen = false;
+            startGame = true;
+        }
+        if(e.getSource() == fire){
+            player.choice = "fire";
+        }
+        if(e.getSource() == water){
+            player.choice = "water";
+        }
+        if(e.getSource() == earth){
+            player.choice = "earth";
         }
     }
 }

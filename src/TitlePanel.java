@@ -28,7 +28,7 @@ public class TitlePanel {
         g.setColor(Color.BLACK);
         g.setFont(gp.c.font3);
         String info1 = "Press Space to Start Game";
-        String info2 = "Press T to Start Game";
+        String info2 = "Press T for Tutorial";
         metrics = g.getFontMetrics(gp.c.font3);
 
         g.drawString(info1, (gp.getWidth()-metrics.stringWidth(info1))/2, 280);
