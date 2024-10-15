@@ -8,10 +8,10 @@ public class GamePanel extends JPanel implements Runnable{
     int screenWidth = tileSize*4;
     int screenLength = tileSize*3;
 
-    //HealthAndEXP hXP = new HealthAndEXP();
     TitlePanel tPanel = new TitlePanel(this);
-    BattlePanel bPanel = new BattlePanel(this);
     Player player = new Player(this);
+    Computer computer = new Computer(this);
+    BattlePanel bPanel = new BattlePanel(this,player,computer);
     CharacterPanel cPanel = new CharacterPanel(this, player);
     TutorialPanel toPanel = new TutorialPanel(this);
     Constants c = new Constants();
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        if(keyH.characterScreen == false && keyH.tutorialScreen == false){
+        if(keyH.characterScreen == false && keyH.tutorialScreen == false && cPanel.startGame == false){
             tPanel.paint(g);
         }
         if(keyH.characterScreen == true){
@@ -65,7 +65,10 @@ public class GamePanel extends JPanel implements Runnable{
             remove(cPanel.water);
             remove(cPanel.earth);
             player.paint(g);
+            computer.paint(g);
             bPanel.paint(g);
+            add(bPanel.special);
+            add(bPanel.attack);
         }
     }
     @Override

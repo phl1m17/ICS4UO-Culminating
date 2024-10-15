@@ -1,21 +1,94 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
-public class BattlePanel {
+public class BattlePanel implements ActionListener{
     GamePanel gp;
-    Image overlay;
+    Image overlay, healthPlayer, healthComputer, staminaPlayer, staminaComputer;
+    Player player;
+    Computer computer;
+    JButton special, attack;
     HealthAndEXP hXP;
-    public BattlePanel(GamePanel gp){
+
+    int pHealthIndex = 0;
+    int pStaminaIndex = 0;
+    int cHealthIndex = 0;
+    int cStaminaIndex = 0;
+    int damage;
+
+    public BattlePanel(GamePanel gp,Player player, Computer computer){
         hXP = new HealthAndEXP();
         this.gp = gp;
+        this.player = player;
+        this.computer = computer;
         overlay = new ImageIcon(getClass().getResource("/Images/Battle Overlay.png")).getImage();
+        healthPlayer = hXP.health[pHealthIndex];
+        staminaPlayer = hXP.stamina[pStaminaIndex];
+        healthComputer = hXP.health[cHealthIndex];
+        staminaComputer = hXP.stamina[cStaminaIndex];
+
+        special = new JButton();
+        attack = new JButton();
+
+        special.setBounds(56,444,282,96);
+        attack.setBounds(428,444,282,96);
+
+        special.setOpaque(false);
+        special.setContentAreaFilled(false);
+        special.setBorderPainted(false);
+
+        attack.setOpaque(false);
+        attack.setContentAreaFilled(false);
+        attack.setBorderPainted(false);
+
+        special.addActionListener(this);
+        attack.addActionListener(this);
+
+        special.setFocusable(false);
+        attack.setFocusable(false); 
     }
     public void paint(Graphics g){
         g.drawImage(overlay,0,0,gp.screenWidth,gp.screenLength, null);
-        //g.drawImage(hXP.temp, 0, 0,gp.screenWidth,gp.screenLength,null);
-        g.drawImage(hXP.health[18], 24, 60,44*6,3*6,null);
-        g.drawImage(hXP.stamina[8], 30,78,44*6,3*6,null);
+        g.drawImage(healthPlayer, 24, 60,44*6,3*6,null);
+        g.drawImage(staminaPlayer, 30,78,44*6,3*6,null);
+
+        g.drawImage(healthComputer, 480, 324,44*6,3*6,null);
+        g.drawImage(staminaComputer, 486,342,44*6,3*6,null);
+
+        g.setColor(Color.BLACK);
+        g.setFont(gp.c.font5);
+        g.drawString(player.player, 30, 54);
+        g.drawString(computer.computer, 486, 318);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == special){
+            damage = (int)(Math.random()*6+3);
+            pStaminaIndex+=damage;
+            cHealthIndex+=damage;
+            staminaPlayer = hXP.stamina[pStaminaIndex];
+            healthComputer = hXP.health[cHealthIndex];
+            System.out.println(damage);
+        }
+        if(e.getSource() == attack){
+            damage = (int)(Math.random()*3+1);
+            pStaminaIndex+=damage;
+            cHealthIndex+=damage;
+            staminaPlayer = hXP.stamina[pStaminaIndex];
+            healthComputer = hXP.health[cHealthIndex];
+            System.out.println(damage);
+        }
+    }
+    public void update(){
+        damage = (int)(Math.random()*3+1);
+        pStaminaIndex+=damage;
+        cHealthIndex+=damage;
     }
 }
+// Invisible Buttons
+// https://stackoverflow.com/questions/5654208/making-a-jbutton-invisible-but-clickable

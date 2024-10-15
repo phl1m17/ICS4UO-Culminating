@@ -5,6 +5,7 @@ import java.awt.Graphics;
 public class Player {
     GamePanel gp;
     String choice;
+    String player;
     public Player(GamePanel gp){
         this.gp = gp;
     }
@@ -14,14 +15,17 @@ public class Player {
         switch (choice) {
             case "fire":
                 g.setColor(Color.red);
+                player = "Charizard";
                 break;
             case "water":
                 g.setColor(Color.cyan);
+                player = "Squirtle";
                 break;
             case "earth":
                 g.setColor(Color.green);
+                player = "EarthDude";
                 break;
         }
-        g.fillRect(100, 200, 200, 400);
+        g.fillRect(96, 240, 120, 120);
     }
 }
