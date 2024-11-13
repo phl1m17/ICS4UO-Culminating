@@ -12,12 +12,12 @@ public final class HealthAndEXP {
         int y2 = 0;
         try {
             temp = ImageIO.read(getClass().getResourceAsStream("/Images/Health and XP.png"));
-            health = new BufferedImage[21];
+            health = new BufferedImage[23];
             for(int i = 0;i<health.length;i++){
                 health[i] = temp.getSubimage(0,y*6,270,18);
                 y+=4;
             }
-            stamina = new BufferedImage[20];
+            stamina = new BufferedImage[22];
             for(int i = 0;i<stamina.length;i++){
                 stamina[i] = temp.getSubimage(50*6,y2*6,246,18);
                 y2+=4;

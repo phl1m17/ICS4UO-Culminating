@@ -20,6 +20,9 @@ public class BattlePanel implements ActionListener{
     int cHealthIndex = 0;
     int cStaminaIndex = 0;
     int damage;
+    int delay = 0;
+
+    boolean playerTurn = true;
 
     public BattlePanel(GamePanel gp,Player player, Computer computer){
         hXP = new HealthAndEXP();
@@ -67,27 +70,52 @@ public class BattlePanel implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == special){
-            damage = (int)(Math.random()*6+3);
-            pStaminaIndex+=damage;
-            cHealthIndex+=damage;
-            staminaPlayer = hXP.stamina[pStaminaIndex];
-            healthComputer = hXP.health[cHealthIndex];
-            System.out.println(damage);
+        if(playerTurn){
+            if(e.getSource() == special){
+                damage = 10;
+                pStaminaIndex += damage;
+                cHealthIndex += damage;
+                staminaPlayer = hXP.stamina[pStaminaIndex];
+                healthComputer = hXP.health[cHealthIndex];
+                playerTurn = false;
+            }
+            if(e.getSource() == attack){
+                damage = 3;
+                pStaminaIndex+=damage;
+                cHealthIndex+=damage;
+                staminaPlayer = hXP.stamina[pStaminaIndex];
+                healthComputer = hXP.health[cHealthIndex];
+                playerTurn = false;
+            }
         }
-        if(e.getSource() == attack){
-            damage = (int)(Math.random()*3+1);
-            pStaminaIndex+=damage;
-            cHealthIndex+=damage;
-            staminaPlayer = hXP.stamina[pStaminaIndex];
-            healthComputer = hXP.health[cHealthIndex];
-            System.out.println(damage);
-        }
+        update();
     }
     public void update(){
-        damage = (int)(Math.random()*3+1);
-        pStaminaIndex+=damage;
-        cHealthIndex+=damage;
+        if(!playerTurn){
+            delay++;
+            if(delay == 20){
+                if(randomInt() == 3){
+                    damage = 10;
+                    cStaminaIndex += damage;
+                    pHealthIndex += damage;
+                    staminaComputer = hXP.stamina[cStaminaIndex];
+                    healthPlayer = hXP.health[pHealthIndex];
+                    playerTurn = true;
+                }
+                else{
+                    damage = 3;
+                    cStaminaIndex += damage;
+                    pHealthIndex += damage;
+                    staminaComputer = hXP.stamina[cStaminaIndex];
+                    healthPlayer = hXP.health[pHealthIndex];
+                    playerTurn = true;
+                }
+                delay = 0;
+            }
+        }
+    }
+    public int randomInt(){
+        return (int) (Math.random() * 5 + 1);
     }
 }
 // Invisible Buttons

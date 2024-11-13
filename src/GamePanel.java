@@ -44,6 +44,9 @@ public class GamePanel extends JPanel implements Runnable{
             remove(cPanel.water);
             remove(cPanel.earth);
         }
+        if(bPanel.playerTurn == false){
+            bPanel.update();
+        }
     }
     @Override
     public void paintComponent(Graphics g){
